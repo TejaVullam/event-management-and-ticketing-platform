@@ -1,0 +1,2 @@
+import "dotenv/config"; import bcrypt from "bcryptjs"; import mongoose from "mongoose"; import {User} from "./models.js";
+await mongoose.connect(process.env.MONGO_URI||"mongodb://localhost:27017/event_booking"); const email=process.env.ADMIN_EMAIL||"admin@example.com"; if(!await User.findOne({email})) await User.create({name:"Administrator",email,passwordHash:await bcrypt.hash(process.env.ADMIN_PASSWORD||"Admin123!",10),role:"admin"}); console.log(`Seeded ${email}`); await mongoose.disconnect();

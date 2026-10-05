@@ -1,0 +1,3 @@
+# Build context intentionally excludes secrets and dependencies
+node_modules
+.env

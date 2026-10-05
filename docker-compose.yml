@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo_data:/data/db]
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+  api:
+    build: ./server
+    env_file: ./server/.env
+    depends_on: [mongo, redis]
+    ports: ["4000:4000"]
+  web:
+    build: ./client
+    depends_on: [api]
+    ports: ["5173:80"]
+volumes:
+  mongo_data:
